@@ -44,7 +44,7 @@ namespace RestaurantTimBaig.Models
         public string Email { get; set; }
 
         /// <summary>
-        /// Полное имя пользователя
+        /// Полное имя пользователя пользователя
         /// </summary>
         public string FullName
         {
