@@ -1,0 +1,52 @@
+﻿@model ICollection<UserAccountViewModel>
+
+@{
+    ViewData["Title"] = "User";
+}
+
+<div class="text-center">
+    @if (Model != null)
+    {
+        @foreach (var item in Model)
+        {
+            <h1 class="display-4">@item.FullName</h1>
+            <p> @item.Address </p>
+            <p> @item.Phone </p>
+            <p> @item.Email </p>
+            <p> @item.DateOfBirth </p>
+            <p> @item.City </p>
+            <p></p>
+            <h1>Мои отзывы</h1>
+            @if (item.Comments.Count != 0)
+            {
+                @foreach (var c in @item.Comments)
+                {
+                    <h2>@c.Restaurant.RestaurantName </h2>
+                    <p>@c.DateComment </p>
+                    <p>@c.Point </p>
+                    <p>@c.DataComment</p>
+                }
+            }
+            else
+            {
+                <p>Вы пока не оставили ни одного отзыва</p>
+            }
+            <h1>Бронирование</h1>
+            @if (item.Reservations.Count != 0)
+            {
+                @foreach (var r in @item.Reservations)
+                {
+                    <h2>@r.Restaurant.RestaurantName </h2>
+                    <p>@r.NumberReservation </p>
+                    <p>Дата создания брони @r.DateReservation </p>
+                    <p>Время брони @r.TimeReservation</p>
+                    <p>Столик № @r.TableRestaurant.NumberTable</p>
+                }
+            }
+            else
+            {
+                <p>Вы пока не забронировали ни одного столика</p>
+            }
+        }
+    }
+</div>

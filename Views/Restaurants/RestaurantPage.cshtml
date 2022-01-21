@@ -1,0 +1,50 @@
+﻿@model RestaurantViewModel
+@inject SignInManager<User> SignInManager
+@inject UserManager<User> UserManager
+
+@{
+    ViewData["Title"] = "Restaurant";
+}
+
+<div class="text-center">
+    @if (Model != null)
+    {
+        var item = Model;
+        <h1 class="display-4">@item.Name</h1>
+        <p> @item.Address </p>
+        <p> @item.Description </p>
+        <p> @item.Email </p>
+        <p> @item.Phone </p>
+        <p></p>
+        <h1>Меню</h1>
+        @foreach (var d in @item.Dishes)
+        {
+            <h2>@d.NameDish </h2>
+            <p>@d.Type </p>
+            <p>@d.Composition </p>
+            <p>@d.CookingTime </p>
+        }
+        <h1>Столики</h1>
+        @foreach (var t in @item.TableRestaurants)
+        {
+            <h2>@t.NumberTable </h2>
+            <p>@t.Status </p>
+        }
+        <h1>Комментарии</h1>
+        @foreach (var e in @item.Comments)
+        {
+            <p>@e.Employee.FullName </p>
+            <p>@e.DateComment </p>
+            <p>@e.Point </p>
+            <p>@e.DataComment </p>
+        }
+        @if (SignInManager.IsSignedIn(User))
+        {
+            @using (Html.BeginForm("AddComment", "Restaurants", new { RestaurantId = item.Id }, FormMethod.Get))
+            {
+                <h1>@item.Id</h1>
+                <button type="submit" class="btn btn-primary btn-fill btn-lg">Добавить отзыв</button>
+                }
+            }
+    }
+</div>
